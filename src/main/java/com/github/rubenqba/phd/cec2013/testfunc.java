@@ -74,7 +74,7 @@ class testfunc {
 				System.out.println("\nError: Test functions are only defined for D=2,5,10,20,30,40,50,60,70,80,90,100.");
 			}
 			
-			File fpt = new File("input_data/M_D"+nx+".txt");//* Load M data *
+			File fpt = new File("src/main/resources/input_data/M_D"+nx+".txt");//* Load M data *
 			Scanner input = new Scanner(fpt);
 			if (!fpt.exists())
 			{
@@ -91,7 +91,7 @@ class testfunc {
 			
 
 			
-			fpt=new File("input_data/shift_data.txt");
+			fpt=new File("src/main/resources/input_data/shift_data.txt");
 			input = new Scanner(fpt);
 			if (!fpt.exists())
 			{

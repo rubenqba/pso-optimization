@@ -1,14 +1,18 @@
 package com.github.rubenqba.phd.cec2013;
 
 import java.io.*;
+import java.util.Locale;
 import java.util.Scanner;
 
 
 public class testmain {
     public static void main(String[] args) throws Exception{
 		int i,j,k,n,m,func_num;
-		double[] x;
+		double[] x ;
 		double[] f;
+
+		Locale.setDefault(Locale.US);
+
 		File fpt = new File("src/main/resources/input_data/shift_data.txt");
 		
 		m=2;
