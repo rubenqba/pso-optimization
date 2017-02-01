@@ -11,14 +11,14 @@ package com.github.rubenqba.phd.pso;
 // if your problem space is greater than 2-dimensional space
 // you need to introduce a new variable (other than x and y)
 
-import java.util.Arrays;
+import com.github.rubenqba.phd.pso.utils.Location;
 
 public class ProblemSet {
 	public static final double LOC_X_LOW = -100;
 	public static final double LOC_X_HIGH = 100;
 	public static final double LOC_Y_LOW = -100;
 	public static final double LOC_Y_HIGH = 100;
-	public static final double VEL_LOW = -1;
+	public static final double VEL_LOW = -4;
 	public static final double VEL_HIGH = 4;
 	
 	public static final double ERR_TOLERANCE = 1E-20; // the smaller the tolerance, the more accurate the result,
@@ -30,8 +30,8 @@ public class ProblemSet {
 
 	public static double function(Location location) {
         double result = 0;
-        double x = location.getLoc()[0]; // the "x" part of the location
-        double y = location.getLoc()[1]; // the "y" part of the location
+        double x = location.get(0); // the "x" part of the location
+        double y = location.get(1); // the "y" part of the location
 
         result = Math.pow(2.8125 - x + x * Math.pow(y, 4), 2) +
                 Math.pow(2.25 - x + x * Math.pow(y, 2), 2) +
@@ -41,11 +41,9 @@ public class ProblemSet {
     }
 
 	public static double sphere(Location location) {
-		double result = 0.0;
+		double result = location.productoEscalar(location);
 
-        double x = location.getLoc()[0]; // the "x" part of the location
-        double y = location.getLoc()[1]; // the "y" part of the location
-
-		return x*x + y*y;
+		return result;
 	}
+
 }
