@@ -32,19 +32,19 @@ public class PSOProcess implements PSOConstants {
 		
 		for(int i=0; i<SWARM_SIZE; i++) {
 			pBest[i] = fitnessValueList[i];
-			pBestLocation.add(swarm.get(i).getLocation().clonar());
+			pBestLocation.add(swarm.get(i).getLocation().clone());
 		}
 		
 		int t = 0;
 		double w;
 		double err = 9999;
 		
-		while(t < MAX_ITERATION && err > ProblemSet.ERR_TOLERANCE) {
+		while(t < MAX_ITERATION && err > ProblemSet1.ERR_TOLERANCE) {
 			// step 1 - update pBest
 			for(int i=0; i<SWARM_SIZE; i++) {
 				if(fitnessValueList[i] < pBest[i]) {
 					pBest[i] = fitnessValueList[i];
-					pBestLocation.set(i, swarm.get(i).getLocation().clonar());
+					pBestLocation.set(i, swarm.get(i).getLocation().clone());
 				}
 			}
 				
@@ -64,7 +64,7 @@ public class PSOProcess implements PSOConstants {
 				Particle p = swarm.get(i);
 				
 				// step 3 - update velocity
-				Velocity v1 = p.getVelocity().clonar();
+				Velocity v1 = p.getVelocity().clone();
 				v1.multiplicarEscalar(w);
 
 				Velocity v2 = new Velocity(Vector.substract(pBestLocation.get(i), p.getLocation()).getDatos());
@@ -99,26 +99,26 @@ public class PSOProcess implements PSOConstants {
 	}
 	
 	public void initializeSwarm() {
-		Particle p;
-		for(int i=0; i<SWARM_SIZE; i++) {
-			p = new Particle();
-			
-			// randomize location inside a space defined in Problem Set
-			double[] loc = new double[PROBLEM_DIMENSION];
-			loc[0] = ProblemSet.LOC_X_LOW + generator.nextDouble() * (ProblemSet.LOC_X_HIGH - ProblemSet.LOC_X_LOW);
-			loc[1] = ProblemSet.LOC_Y_LOW + generator.nextDouble() * (ProblemSet.LOC_Y_HIGH - ProblemSet.LOC_Y_LOW);
-			Location location = new Location(loc);
-			
-			// randomize velocity in the range defined in Problem Set
-			double[] vel = new double[PROBLEM_DIMENSION];
-			vel[0] = ProblemSet.VEL_LOW + generator.nextDouble() * (ProblemSet.VEL_HIGH - ProblemSet.VEL_LOW);
-			vel[1] = ProblemSet.VEL_LOW + generator.nextDouble() * (ProblemSet.VEL_HIGH - ProblemSet.VEL_LOW);
-			Velocity velocity = new Velocity(vel);
-			
-			p.setLocation(location);
-			p.setVelocity(velocity);
-			swarm.add(p);
-		}
+//		Particle p;
+//		for(int i=0; i<SWARM_SIZE; i++) {
+//			p = new Particle();
+//
+//			// randomize location inside a space defined in Problem Set
+//			double[] loc = new double[PROBLEM_DIMENSION];
+//			loc[0] = ProblemSet1.LOC_X_LOW + generator.nextDouble() * (ProblemSet1.LOC_X_HIGH - ProblemSet1.LOC_X_LOW);
+//			loc[1] = ProblemSet1.LOC_Y_LOW + generator.nextDouble() * (ProblemSet1.LOC_Y_HIGH - ProblemSet1.LOC_Y_LOW);
+//			Location location = new Location(loc);
+//
+//			// randomize velocity in the range defined in Problem Set
+//			double[] vel = new double[PROBLEM_DIMENSION];
+//			vel[0] = ProblemSet1.VEL_LOW + generator.nextDouble() * (ProblemSet1.VEL_HIGH - ProblemSet1.VEL_LOW);
+//			vel[1] = ProblemSet1.VEL_LOW + generator.nextDouble() * (ProblemSet1.VEL_HIGH - ProblemSet1.VEL_LOW);
+//			Velocity velocity = new Velocity(vel);
+//
+//			p.setLocation(location);
+//			p.setVelocity(velocity);
+//			swarm.add(p);
+//		}
 	}
 	
 	public void updateFitnessList() {

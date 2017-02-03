@@ -48,7 +48,7 @@ public class Vector {
     }
 
     public static Vector substract(Vector v1, Vector v2) {
-        Vector r = v1.clonar();
+        Vector r = v1.clone();
         r.restar(v2);
         return r;
     }
@@ -78,7 +78,7 @@ public class Vector {
         return Arrays.stream(datos).anyMatch(d -> Double.isNaN(d));
     }
 
-    public Vector clonar() {
+    public Vector clone() {
         return new Vector(datos);
     }
 
@@ -106,7 +106,7 @@ public class Vector {
     }
 
     public Vector unitario() {
-        Vector nuevo = clonar();
+        Vector nuevo = clone();
         nuevo.normalizar(1.0);
         return nuevo;
     }

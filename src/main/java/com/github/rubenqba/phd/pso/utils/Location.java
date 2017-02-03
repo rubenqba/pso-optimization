@@ -9,7 +9,7 @@ public class Location extends Vector {
         super(data);
     }
 
-    public Location clonar() {
+    public Location clone() {
         return new Location(this.getDatos());
     }
 }

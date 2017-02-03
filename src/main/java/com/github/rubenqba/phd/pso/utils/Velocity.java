@@ -12,7 +12,7 @@ public class Velocity extends Vector {
         super(data);
     }
 
-    public Velocity clonar() {
+    public Velocity clone() {
         return new Velocity(this.getDatos());
     }
 }

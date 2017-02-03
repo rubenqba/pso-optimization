@@ -1,6 +1,6 @@
 package com.github.rubenqba.phd.pso.utils;
 
-import com.github.rubenqba.phd.pso.ProblemSet;
+import com.github.rubenqba.phd.pso.core.PSOProblemSet;
 import lombok.Data;
 
 @Data
@@ -9,9 +9,13 @@ public class Particle {
 	private double fitnessValue;
 	private Velocity velocity;
 	private Location location;
+
+	private double bestFitness;
+	private Location bestLocation;
 	
 	public Particle() {
 		super();
+		bestFitness = Double.MAX_VALUE;
 	}
 
 	public Particle(double fitnessValue, Velocity velocity, Location location) {
@@ -21,8 +25,14 @@ public class Particle {
 		this.location = location;
 	}
 
-	public double getFitnessValue() {
-		fitnessValue = ProblemSet.evaluate(location);
+	public double getFitnessValue(PSOProblemSet problem) {
+		fitnessValue = problem.evaluate(location);
+
+		if (bestFitness > fitnessValue) {
+            bestFitness = fitnessValue;
+            bestLocation = location.clone();
+        }
+
 		return fitnessValue;
 	}
 }
