@@ -81,8 +81,11 @@ public class Swarm {
             Velocity vel = new Velocity(Vector.sumUp(v1, l1, l2).getDatos());
             p.setVelocity(vel);
 
+            Location loc = p.getLocation().clone();
+            loc.sumar(vel);
+
             // step 4 - update location
-            p.getLocation().sumar(vel);
+            p.setLocation(loc);
         });
 
         iteration++;

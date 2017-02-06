@@ -27,7 +27,7 @@ public class PSODriver {
 
             System.out.println("ITERATION " + i + ": ");
             System.out.println("     Best X: " + s.getBestLocation().get(0));
-            System.out.println("     Best Y: " + s.getBestLocation().get(1));
+//            System.out.println("     Best Y: " + s.getBestLocation().get(1));
             System.out.println("     Value: " + s.getBestFitness());
 
             i++;
@@ -35,7 +35,7 @@ public class PSODriver {
 
         System.out.println("\nSolution found at iteration " + (i - 1) + ", the solutions is:");
         System.out.println("     Best X: " + s.getBestLocation().get(0));
-        System.out.println("     Best Y: " + s.getBestLocation().get(1));
+//        System.out.println("     Best Y: " + s.getBestLocation().get(1));
         System.out.println("     Value: " + s.getBestFitness());
 	}
 }

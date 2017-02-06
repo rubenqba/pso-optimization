@@ -15,7 +15,6 @@ import com.github.rubenqba.phd.pso.core.PSOProblemSet;
 import com.github.rubenqba.phd.pso.utils.Location;
 
 public class ProblemSet1 implements PSOProblemSet {
-    public static final int PROBLEM_DIMENSION = 2;
     public static final int SWARM_SIZE = 10;
 
     public static final double VEL_LOW = 0;
@@ -66,7 +65,7 @@ public class ProblemSet1 implements PSOProblemSet {
 
     @Override
     public int getProblemDimension() {
-        return PROBLEM_DIMENSION;
+        return 1; //PROBLEM_DIMENSION;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class ProblemSet1 implements PSOProblemSet {
 	}
 
 	public double evaluate(Location location) {
-		return sphere(location);
+		return quadratic(location);
 	}
 
 	public static double function(Location location) {
@@ -105,6 +104,12 @@ public class ProblemSet1 implements PSOProblemSet {
 
 		return result;
 	}
+
+    public static double quadratic(Location location) {
+        double result = location.get(0) * location.get(0);
+
+        return result;
+    }
 
     @Override
     public double getOptimum() {

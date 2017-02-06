@@ -45,8 +45,8 @@ public class PSOUtility {
         Location min = problem.getLocationMinimum();
         Location max = problem.getLocationMaximum();
 
-        double cord[] = new double[ProblemSet1.PROBLEM_DIMENSION];
-        IntStream.range(0, ProblemSet1.PROBLEM_DIMENSION)
+        double cord[] = new double[problem.getProblemDimension()];
+        IntStream.range(0, problem.getProblemDimension())
                 .forEach(i -> cord[i] = min.get(i) + generator.nextDouble() * (max.get(i) - min.get(i)));
 
         return new Location(cord);
