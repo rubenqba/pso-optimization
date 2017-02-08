@@ -1,4 +1,4 @@
-package com.github.rubenqba.phd.pso.utils;
+package org.github.rubenqba.pso.util;
 
 import lombok.Getter;
 
@@ -11,7 +11,7 @@ public  class RandomGenerator {
     private Random random;
 
     private RandomGenerator() {
-        random = new Random(0);
+        random = new Random(4);
     }
 
     public static RandomGenerator getInstance() {

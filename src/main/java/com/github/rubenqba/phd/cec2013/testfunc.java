@@ -246,12 +246,13 @@ class testfunc {
 	{
 		int i;
 		shiftfunc(x, y, nx, Os);
-		if (r_flag==1)
-		rotatefunc(y, z, nx, Mr);
-		else
-	    for (i=0; i<nx; i++){
-			z[i]=y[i];
-		}
+        if (r_flag == 1) {
+            rotatefunc(y, z, nx, Mr);
+        } else {
+            for (i = 0; i < nx; i++) {
+                z[i] = y[i];
+            }
+        }
 						
 		f = 0.0;
 	    for (i=0; i<nx; i++)
@@ -855,10 +856,10 @@ class testfunc {
 	    }
 		tmp1 = z[nx-1]*z[nx-1]-z[0];
 		tmp2 = z[nx-1]-1.0;
-	    temp = 100.0*tmp1*tmp1 + tmp2*tmp2;;
-	     f += (temp*temp)/4000.0 - Math.cos(temp) + 1.0 ;
-	     
-	     return f;
+        temp = 100.0 * tmp1 * tmp1 + tmp2 * tmp2;
+        f += (temp * temp) / 4000.0 - Math.cos(temp) + 1.0;
+
+        return f;
 	}
 	
 	
