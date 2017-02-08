@@ -255,9 +255,8 @@ class testfunc {
         }
 						
 		f = 0.0;
-	    for (i=0; i<nx; i++)
-	    {
-	    	f += z[i]*z[i];
+        for (i = 0; i < nx; i++) {
+            f += z[i]*z[i];
 	    }
 	    
 	    return f;
