@@ -11,6 +11,11 @@ public class BaseLineProblem implements PSOProblemSet {
     }
 
     @Override
+    public double getW(int iteration) {
+        return .1;
+    }
+
+    @Override
     public double[] getLocationMinimum() {
         return new double[]{1, -1};
     }

@@ -8,7 +8,7 @@ public class SimpleQuadratic implements PSOProblemSet {
 
     @Override
     public double[] getLocationMinimum() {
-        return new double[]{-10};
+        return new double[]{0};
     }
 
     @Override
@@ -18,11 +18,11 @@ public class SimpleQuadratic implements PSOProblemSet {
 
     @Override
     public double evaluate(double[] location) {
-        return location[0] * location[0] + 2;
+        return location[0] * location[0];
     }
 
     @Override
     public double getOptimum() {
-        return 2;
+        return 0;
     }
 }

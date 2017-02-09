@@ -10,23 +10,13 @@ public class LinearProblem implements PSOProblemSet {
     }
 
     @Override
-    public double getW(int iteration) {
-        return .9;
-    }
-
-    @Override
-    public double getC1() {
-        return .2;
-    }
-
-    @Override
-    public double getC2() {
-        return 3.5;
+    public int getSwarmSize() {
+        return 10;
     }
 
     @Override
     public double[] getLocationMinimum() {
-        return new double[]{-10};
+        return new double[]{0};
     }
 
     @Override
@@ -36,7 +26,7 @@ public class LinearProblem implements PSOProblemSet {
 
     @Override
     public double evaluate(double[] location) {
-        return location[0] * location[0] + 2;
+        return location[0] + 2;
     }
 
     @Override

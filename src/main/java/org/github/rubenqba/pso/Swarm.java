@@ -1,12 +1,12 @@
 package org.github.rubenqba.pso;
 
+import lombok.Getter;
 import org.github.rubenqba.pso.data.Location;
 import org.github.rubenqba.pso.data.Velocity;
 import org.github.rubenqba.pso.problem.PSOProblemSet;
 import org.github.rubenqba.pso.util.PSOUtility;
 import org.github.rubenqba.pso.util.RandomGenerator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -14,6 +14,7 @@ import java.util.stream.IntStream;
 
 import static java.util.Comparator.comparingDouble;
 
+@Getter
 public class Swarm {
 
     private PSOProblemSet problem;
@@ -21,36 +22,30 @@ public class Swarm {
     private double gBest;
     private Location gBestLocation;
 
-    private Random generator;
     private int iteration;
 
-    public Swarm(PSOProblemSet problem) {
+    public void execute(PSOProblemSet problem) {
         this.problem = problem;
-        swarm = new ArrayList<>(problem.getSwarmSize());
-        gBest = Double.MAX_VALUE;
-        generator = RandomGenerator.getInstance().getRandom();
-    }
 
-    public void execute() {
+        gBest = Double.MAX_VALUE;
+
         initializeSwarm();
-//        updateFitnessList();
 
         iteration = 0;
-        while (iteration < problem.getMaximumIterations() && getError() > problem.getErrorTolerance()) {
+        while (getError() > problem.getErrorTolerance() && iteration < problem.getMaximumIterations()) {
             updateFitnessList();
             iterate();
         }
 
-        System.out.println("\nSolution found at iteration " + (iteration - 1) + ", the solutions is:");
-        System.out.println("     Best : " + gBestLocation);
-        System.out.println("     Value: " + problem.evaluate(gBestLocation.getLoc()));
-        System.out.println("     Error: " + getError());
+
     }
 
     public void iterate() {
         updateFitnessList();
 
         final double w = problem.getW(iteration);
+
+        Random generator = RandomGenerator.getInstance().getRandom();
 
         swarm.stream().forEach(p -> {
             double r1 = generator.nextDouble();
@@ -75,10 +70,10 @@ public class Swarm {
             p.setLocation(new Location(newLoc));
         });
 
-        System.out.println("ITERATION " + iteration + ": ");
-        System.out.println("     Best : " + gBestLocation);
-        System.out.println("     Value: " + problem.evaluate(gBestLocation.getLoc()));
-        System.out.println("     Error: " + getError());
+//        System.out.println("ITERATION " + (iteration + 1) + ": ");
+//        System.out.println("     Best : " + gBestLocation);
+//        System.out.println("     Value: " + problem.evaluate(gBestLocation.getLoc()));
+//        System.out.println("     Error: " + getError());
 
         iteration++;
     }
