@@ -2,6 +2,7 @@ package org.github.rubenqba.pso.util;
 
 import lombok.Getter;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 public  class RandomGenerator {
@@ -11,7 +12,7 @@ public  class RandomGenerator {
     private Random random;
 
     private RandomGenerator() {
-        random = new Random(4);
+        random = new SecureRandom();
     }
 
     public static RandomGenerator getInstance() {

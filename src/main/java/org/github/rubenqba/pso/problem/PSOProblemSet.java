@@ -17,23 +17,23 @@ public interface PSOProblemSet {
 //        double w_LOWERBOUND = 0.0;
 //
 //        return w_UPPERBOUND - (((double) iteration) / getMaximumIterations()) * (w_UPPERBOUND - w_LOWERBOUND);
-        return .1;
+        return .6;
     }
 
     default double getC1() {
-        return 2;
+        return 1.7;
     }
 
     default double getC2() {
-        return 2;
+        return 1.7;
     }
 
     default double getMinimumVelocity() {
-        return -1;
+        return -10;
     }
 
     default double getMaximumVelocity() {
-        return 1;
+        return 10;
     }
 
     default double getErrorTolerance() {
@@ -41,7 +41,7 @@ public interface PSOProblemSet {
     }
 
     default int getMaximumIterations() {
-        return 1000;
+        return 10000;
     }
 
     double[] getLocationMinimum();
