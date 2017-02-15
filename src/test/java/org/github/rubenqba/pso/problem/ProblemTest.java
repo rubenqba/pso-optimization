@@ -21,7 +21,6 @@ public class ProblemTest {
     @Test
     public void testProblem() throws IOException {
 
-//        Locale.setDefault(PSOUtility.getLocale("es"));
         NumberFormat nf = NumberFormat.getInstance(PSOUtility.getLocale("es"));
         nf.setMaximumFractionDigits(8);
 
