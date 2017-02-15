@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 /**
  * Created by ruben.bressler on 15/02/17.
  */
-public class ProblemTest {
+public abstract class ProblemTest {
 
     protected PSOProblemSet p;
     protected Swarm swarm;

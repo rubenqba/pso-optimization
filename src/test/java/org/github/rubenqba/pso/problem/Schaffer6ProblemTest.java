@@ -1,5 +1,6 @@
 package org.github.rubenqba.pso.problem;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -9,10 +10,15 @@ import static org.hamcrest.Matchers.closeTo;
 /**
  * Created by ruben.bressler on 15/02/17.
  */
-public class Schaffer6ProblemTest {
+public class Schaffer6ProblemTest extends ProblemTest {
+
+    @Before
+    public void setUp() {
+        p = new Schaffer6Problem();
+    }
+
     @Test
     public void evaluate() throws Exception {
-        Schaffer6Problem p = new Schaffer6Problem();
 
         double[] x1 = {0, 0};
         double[] x2 = {1, 2};

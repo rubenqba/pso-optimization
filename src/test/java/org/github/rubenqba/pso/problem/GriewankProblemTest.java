@@ -1,5 +1,6 @@
 package org.github.rubenqba.pso.problem;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -9,11 +10,15 @@ import static org.hamcrest.Matchers.closeTo;
 /**
  * Created by ruben.bressler on 15/02/17.
  */
-public class GriewankProblemTest {
+public class GriewankProblemTest extends ProblemTest {
+
+    @Before
+    public void setUp() {
+        p = new GriewankProblem();
+    }
+
     @Test
     public void evaluate() throws Exception {
-
-        GriewankProblem p = new GriewankProblem();
 
         double[] x1 = {0, 0, 0, 0, 0};
         double[] x2 = {1, 2, 3, 4, 5};
