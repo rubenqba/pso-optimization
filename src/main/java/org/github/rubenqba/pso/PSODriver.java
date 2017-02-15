@@ -1,48 +1,29 @@
 package org.github.rubenqba.pso;
 
-import org.github.rubenqba.pso.problem.SphereProblem;
+import org.github.rubenqba.pso.problem.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class PSODriver {
     public static void main(String args[]) {
         Locale.setDefault(Locale.US);
         Swarm s = new Swarm();
+//        s.setDebug(true);
 
-//        s.execute(new BaseLineProblem());
-//        System.out.println("\nSolution of " + s.getProblem().getName() + " found at iteration " + s.getIteration() +
-//                                   ", " +
-//                                   "the solutions" +
-//                                   " is:");
-//        System.out.println("     Best : " + s.getGBestLocation());
-//        System.out.println("     Value: " + s.getGBest());
-//        System.out.println("     Error: " + s.getError());
+        List<PSOProblemSet> problems = Arrays.asList(new SphereProblem(), new RosenbrockProblem(),
+                new RastriginProblem(), new GriewankProblem(), new Schaffer6Problem());
 
-//        s.execute(new LinearProblem());
-//        System.out.println("\nSolution of " + s.getProblem().getName() + " found at iteration " + s.getIteration()
-// + ", " +
-//                                   "the solutions" +
-//                                   " is:");
-//        System.out.println("     Best : " + s.getGBestLocation());
-//        System.out.println("     Value: " + s.getGBest());
-//        System.out.println("     Error: " + s.getError());
+        problems.stream()
+                .forEach(s::execute);
+    }
 
-        s.execute(new SphereProblem());
-        System.out.println("\nSolution of " + s.getProblem().getName() + " found at iteration " + s.getIteration() +
-                                   ", " +
-                                   "the solutions" +
-                                   " is:");
+    private void summary(Swarm s) {
+        System.out.println(String.format("\nSolution of %s found at iteration %d, the solutions is:",
+                s.getProblem().getName(), s.getIteration()));
         System.out.println("     Best : " + s.getGBestLocation());
         System.out.println("     Value: " + s.getGBest());
         System.out.println("     Error: " + s.getError());
-
-//        s.execute(new SimpleQuadratic());
-//        System.out.println("\nSolution of " + s.getProblem().getName() + " found at iteration " + s.getIteration() +
-//                                   ", " +
-//                                   "the solutions" +
-//                                   " is:");
-//        System.out.println("     Best : " + s.getGBestLocation());
-//        System.out.println("     Value: " + s.getGBest());
-//        System.out.println("     Error: " + s.getError());
     }
 }

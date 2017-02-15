@@ -6,7 +6,9 @@ public interface PSOProblemSet {
         return this.getClass().getSimpleName();
     }
 
-    int getProblemDimension();
+    default int getProblemDimension() {
+        return 30;
+    }
 
     default int getSwarmSize() {
         return 30;
@@ -50,5 +52,7 @@ public interface PSOProblemSet {
 
     double evaluate(double[] location);
 
-    double getOptimum();
+    default double getOptimum() {
+        return 0;
+    }
 }

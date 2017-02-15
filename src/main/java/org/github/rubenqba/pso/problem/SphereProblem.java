@@ -26,6 +26,16 @@ public class SphereProblem implements PSOProblemSet {
     }
 
     @Override
+    public double getMaximumVelocity() {
+        return 100;
+    }
+
+    @Override
+    public double getMinimumVelocity() {
+        return -100;
+    }
+
+    @Override
     public double getErrorTolerance() {
         return 1E-2;
     }
@@ -37,13 +47,8 @@ public class SphereProblem implements PSOProblemSet {
 
     @Override
     public double evaluate(double[] location) {
-        return Math.sqrt(Arrays.stream(location)
-                                 .map(l -> l * l)
-                                 .sum());
-    }
-
-    @Override
-    public double getOptimum() {
-        return 0;
+        return Arrays.stream(location)
+                .map(l -> l * l)
+                .sum();
     }
 }

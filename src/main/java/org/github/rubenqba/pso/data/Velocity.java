@@ -9,11 +9,11 @@ public class Velocity {
         this.vel = vel;
     }
 
-    public double[] getPos() {
+    public double[] getVelocity() {
         return vel;
     }
 
-    public void setPos(double[] vel) {
+    public void setVelocity(double[] vel) {
         this.vel = vel;
     }
 
