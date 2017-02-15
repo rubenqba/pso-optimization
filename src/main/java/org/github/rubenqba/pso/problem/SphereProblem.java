@@ -8,33 +8,47 @@ import java.util.Arrays;
 public class SphereProblem implements PSOProblemSet {
     @Override
     public int getProblemDimension() {
-        return 2;
-    }
-
-    @Override
-    public int getMaximumIterations() {
-        return 200;
+        return 30;
     }
 
     @Override
     public double[] getLocationMinimum() {
-        return new double[]{-100, -100};
+        double[] array = new double[getProblemDimension()];
+        Arrays.fill(array, -100d);
+        return array;
     }
 
     @Override
     public double[] getLocationMaximum() {
-        return new double[]{100, 100};
+        double[] array = new double[getProblemDimension()];
+        Arrays.fill(array, 100d);
+        return array;
+    }
+
+    @Override
+    public double getMaximumVelocity() {
+        return 100;
+    }
+
+    @Override
+    public double getMinimumVelocity() {
+        return -100;
+    }
+
+    @Override
+    public double getErrorTolerance() {
+        return 1E-2;
+    }
+
+    @Override
+    public int getSwarmSize() {
+        return 30;
     }
 
     @Override
     public double evaluate(double[] location) {
         return Arrays.stream(location)
-                       .map(l -> l * l)
-                       .sum();
-    }
-
-    @Override
-    public double getOptimum() {
-        return 0;
+                .map(l -> l * l)
+                .sum();
     }
 }

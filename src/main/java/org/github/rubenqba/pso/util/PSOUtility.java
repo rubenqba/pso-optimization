@@ -4,6 +4,8 @@ import org.github.rubenqba.pso.data.Location;
 import org.github.rubenqba.pso.data.Velocity;
 import org.github.rubenqba.pso.problem.PSOProblemSet;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.IntStream;
 
 public class PSOUtility {
@@ -36,5 +38,12 @@ public class PSOUtility {
                 });
 
         return new Velocity(vel);
+    }
+
+    public static Locale getLocale(String country) {
+        return Arrays.stream(Locale.getAvailableLocales())
+                .filter(l -> country.equalsIgnoreCase(l.getCountry()))
+                .findFirst()
+                .orElse(Locale.US);
     }
 }
