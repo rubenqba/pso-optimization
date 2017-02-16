@@ -3,15 +3,10 @@ package org.github.rubenqba.pso.problem;
 /**
  * Created by ruben.bressler on 8/02/17.
  */
-public class LinearProblem implements PSOProblemSet {
+public class LinearProblem extends CommonProblemSet {
     @Override
     public int getProblemDimension() {
         return 1;
-    }
-
-    @Override
-    public int getSwarmSize() {
-        return 10;
     }
 
     @Override
@@ -25,8 +20,8 @@ public class LinearProblem implements PSOProblemSet {
     }
 
     @Override
-    public double evaluate(double[] location) {
-        return location[0] + 2;
+    public double evaluate(double[] v) {
+        return v[0] + 2;
     }
 
     @Override

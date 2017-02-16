@@ -12,7 +12,7 @@ public class PSODriver {
         Swarm s = new Swarm();
 //        s.setDebug(true);
 
-        List<PSOProblemSet> problems = Arrays.asList(new SphereProblem(), new RosenbrockProblem(),
+        List<ProblemSet> problems = Arrays.asList(new SphereProblem(), new RosenbrockProblem(),
                 new RastriginProblem(), new GriewankProblem(), new Schaffer6Problem());
 
         problems.stream()

@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 /**
  * Created by ruben.bressler on 15/02/17.
  */
-public class RastriginProblem implements PSOProblemSet {
+public class RastriginProblem extends CommonProblemSet {
 
     @Override
     public double getErrorTolerance() {

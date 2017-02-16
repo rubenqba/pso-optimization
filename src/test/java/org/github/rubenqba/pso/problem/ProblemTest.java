@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
@@ -15,8 +16,11 @@ import java.util.stream.IntStream;
  */
 public abstract class ProblemTest {
 
-    protected PSOProblemSet p;
+    protected ProblemSet p;
     protected Swarm swarm;
+
+    private int[] swarmSize = {15, 30, 60};
+
 
     @Test
     public void testProblem() throws IOException {
@@ -30,12 +34,18 @@ public abstract class ProblemTest {
         writer.writeNext(new String[]{"Function", "Run", "Particles", "W", "C1", "C2", "Goal", "Iteration", "Value",
                 "Error"});
         IntStream.range(0, 20)
-                .forEach(i -> {
-                    swarm.execute(p);
-                    writer.writeNext(new String[]{p.getName(), nf.format(i), nf.format(p.getSwarmSize()), nf.format(p.getW(0)),
-                            nf.format(p.getC1()), nf.format(p.getC2()), nf.format(p.getErrorTolerance()), nf.format(swarm.getIteration()),
-                            nf.format(swarm.getGBest()), nf.format(swarm.getError())});
-                });
+                .forEach(i ->
+                        Arrays.stream(swarmSize)
+                                .forEach(s -> {
+                                    p.setSwarmSize(s);
+                                    swarm.execute(p);
+                                    writer.writeNext(new String[]{p.getName(), nf.format(i), nf.format(p.getSwarmSize()), nf.format(p
+                                            .getW(0)),
+                                            nf.format(p.getC1()), nf.format(p.getC2()), nf.format(p.getErrorTolerance()), nf.format(swarm
+                                            .getIteration()),
+                                            nf.format(swarm.getGBest()), nf.format(swarm.getError())});
+                                })
+                );
 
         writer.close();
     }

@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 /**
  * Created by ruben.bressler on 15/02/17.
  */
-public class RosenbrockProblem implements PSOProblemSet {
+public class RosenbrockProblem extends CommonProblemSet {
     @Override
     public double getErrorTolerance() {
         return 1E2;

@@ -1,6 +1,6 @@
 package org.github.rubenqba.pso.problem;
 
-public class SimpleQuadratic implements PSOProblemSet {
+public class SimpleQuadratic extends CommonProblemSet {
     @Override
     public int getProblemDimension() {
         return 1;
@@ -17,12 +17,8 @@ public class SimpleQuadratic implements PSOProblemSet {
     }
 
     @Override
-    public double evaluate(double[] location) {
-        return location[0] * location[0];
+    public double evaluate(double[] v) {
+        return v[0] * v[0];
     }
 
-    @Override
-    public double getOptimum() {
-        return 0;
-    }
 }

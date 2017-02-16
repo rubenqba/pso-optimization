@@ -2,7 +2,7 @@ package org.github.rubenqba.pso.util;
 
 import org.github.rubenqba.pso.data.Location;
 import org.github.rubenqba.pso.data.Velocity;
-import org.github.rubenqba.pso.problem.PSOProblemSet;
+import org.github.rubenqba.pso.problem.ProblemSet;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -16,7 +16,7 @@ public class PSOUtility {
         return pos;
     }
 
-    public static Location randomLocation(PSOProblemSet problem) {
+    public static Location randomLocation(ProblemSet problem) {
         double[] loc = new double[problem.getProblemDimension()];
         IntStream.range(0, problem.getProblemDimension())
                 .forEach(j -> {
@@ -28,7 +28,7 @@ public class PSOUtility {
         return new Location(loc);
     }
 
-    public static Velocity randomVelocity(PSOProblemSet problem) {
+    public static Velocity randomVelocity(ProblemSet problem) {
         double[] vel = new double[problem.getProblemDimension()];
         IntStream.range(0, problem.getProblemDimension())
                 .forEach(j -> {

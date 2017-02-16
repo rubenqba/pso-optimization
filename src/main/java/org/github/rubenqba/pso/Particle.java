@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.github.rubenqba.pso.data.Location;
 import org.github.rubenqba.pso.data.Velocity;
-import org.github.rubenqba.pso.problem.PSOProblemSet;
+import org.github.rubenqba.pso.problem.ProblemSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class Particle {
         bestFitness = Double.MAX_VALUE;
     }
 
-    public double getFitnessValue(PSOProblemSet problem) {
+    public double getFitnessValue(ProblemSet problem) {
         fitnessValue = problem.evaluate(location.getLoc());
 
         if (fitnessValue < bestFitness) {

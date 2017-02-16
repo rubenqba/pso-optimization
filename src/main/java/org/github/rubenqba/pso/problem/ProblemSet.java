@@ -1,6 +1,6 @@
 package org.github.rubenqba.pso.problem;
 
-public interface PSOProblemSet {
+public interface ProblemSet {
 
     default String getName() {
         return this.getClass().getSimpleName();
@@ -10,9 +10,9 @@ public interface PSOProblemSet {
         return 30;
     }
 
-    default int getSwarmSize() {
-        return 30;
-    }
+    int getSwarmSize();
+
+    void setSwarmSize(int swarmSize);
 
     default double getW(int iteration) {
 //        double w_UPPERBOUND = 1.0;

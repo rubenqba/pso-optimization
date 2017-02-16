@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Created by ruben.bressler on 15/02/17.
  */
-public class Schaffer6Problem implements PSOProblemSet {
+public class Schaffer6Problem extends CommonProblemSet {
 
     @Override
     public int getProblemDimension() {

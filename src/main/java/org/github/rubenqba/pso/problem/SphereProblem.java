@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Created by ruben.bressler on 8/02/17.
  */
-public class SphereProblem implements PSOProblemSet {
+public class SphereProblem extends CommonProblemSet {
     @Override
     public int getProblemDimension() {
         return 30;
@@ -38,11 +38,6 @@ public class SphereProblem implements PSOProblemSet {
     @Override
     public double getErrorTolerance() {
         return 1E-2;
-    }
-
-    @Override
-    public int getSwarmSize() {
-        return 30;
     }
 
     @Override

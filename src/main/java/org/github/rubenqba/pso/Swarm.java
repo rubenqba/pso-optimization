@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.github.rubenqba.pso.data.Location;
 import org.github.rubenqba.pso.data.Velocity;
-import org.github.rubenqba.pso.problem.PSOProblemSet;
+import org.github.rubenqba.pso.problem.ProblemSet;
 import org.github.rubenqba.pso.util.PSOUtility;
 import org.github.rubenqba.pso.util.RandomGenerator;
 
@@ -22,7 +22,7 @@ import static java.util.Comparator.comparingDouble;
 @Getter
 public class Swarm {
 
-    private PSOProblemSet problem;
+    private ProblemSet problem;
     private List<Particle> swarm;
     private double gBest;
     private Location gBestLocation;
@@ -31,7 +31,7 @@ public class Swarm {
     @Setter
     private boolean debug = false;
 
-    public void execute(PSOProblemSet problem) {
+    public void execute(ProblemSet problem) {
         this.problem = problem;
 
         gBest = Double.MAX_VALUE;
