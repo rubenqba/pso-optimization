@@ -14,7 +14,7 @@ public interface ProblemSet {
 
     void setSwarmSize(int swarmSize);
 
-    default double getW(int iteration) {
+    default double getW() {
 //        double w_UPPERBOUND = 1.0;
 //        double w_LOWERBOUND = 0.0;
 //
@@ -46,9 +46,9 @@ public interface ProblemSet {
         return 10000;
     }
 
-    double[] getLocationMinimum();
+    double[] getMinimumLocation();
 
-    double[] getLocationMaximum();
+    double[] getMaximumLocation();
 
     double evaluate(double[] location);
 

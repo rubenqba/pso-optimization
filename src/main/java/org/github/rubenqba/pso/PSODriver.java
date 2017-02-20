@@ -10,7 +10,6 @@ public class PSODriver {
     public static void main(String args[]) {
         Locale.setDefault(Locale.US);
         Swarm s = new Swarm();
-//        s.setDebug(true);
 
         List<ProblemSet> problems = Arrays.asList(new SphereProblem(), new RosenbrockProblem(),
                 new RastriginProblem(), new GriewankProblem(), new Schaffer6Problem());
@@ -22,8 +21,8 @@ public class PSODriver {
     private void summary(Swarm s) {
         System.out.println(String.format("\nSolution of %s found at iteration %d, the solutions is:",
                 s.getProblem().getName(), s.getIteration()));
-        System.out.println("     Best : " + s.getGBestLocation());
-        System.out.println("     Value: " + s.getGBest());
+        System.out.println("     Best : " + s.getBestLocation());
+        System.out.println("     Value: " + s.getBestFitness());
         System.out.println("     Error: " + s.getError());
     }
 }

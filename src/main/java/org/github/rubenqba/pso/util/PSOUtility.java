@@ -18,11 +18,10 @@ public class PSOUtility {
 
     public static Location randomLocation(ProblemSet problem) {
         double[] loc = new double[problem.getProblemDimension()];
+        double[] r1 = RandomGenerator.getInstance().nextDoubles(problem.getProblemDimension());
         IntStream.range(0, problem.getProblemDimension())
-                .forEach(j -> {
-                    loc[j] = problem.getLocationMinimum()[j]
-                                     + RandomGenerator.getInstance().getRandom().nextDouble()
-                                               * (problem.getLocationMaximum()[j] - problem.getLocationMinimum()[j]);
+                .forEach(i -> {
+                    loc[i] = problem.getMinimumLocation()[i] + r1[i] * (problem.getMaximumLocation()[i] - problem.getMinimumLocation()[i]);
                 });
 
         return new Location(loc);
@@ -30,11 +29,10 @@ public class PSOUtility {
 
     public static Velocity randomVelocity(ProblemSet problem) {
         double[] vel = new double[problem.getProblemDimension()];
+        double[] r = RandomGenerator.getInstance().nextDoubles(problem.getProblemDimension());
         IntStream.range(0, problem.getProblemDimension())
-                .forEach(j -> {
-                    vel[j] = problem.getMinimumVelocity()
-                                     + RandomGenerator.getInstance().getRandom().nextDouble()
-                                               * (problem.getMaximumVelocity() - problem.getMinimumVelocity());
+                .forEach(i -> {
+                    vel[i] = problem.getMinimumVelocity() + r[i] * (problem.getMaximumVelocity() - problem.getMinimumVelocity());
                 });
 
         return new Velocity(vel);

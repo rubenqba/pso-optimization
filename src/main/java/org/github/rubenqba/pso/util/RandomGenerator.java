@@ -1,7 +1,6 @@
 package org.github.rubenqba.pso.util;
 
-import lombok.Getter;
-
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -9,11 +8,14 @@ import java.util.stream.IntStream;
 public  class RandomGenerator {
     private static RandomGenerator instance;
 
-    @Getter
     private Random random;
 
     private RandomGenerator() {
-        random = new SecureRandom();
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            random = new SecureRandom(SecureRandom.getSeed(8));
+        }
     }
 
     public static RandomGenerator getInstance() {

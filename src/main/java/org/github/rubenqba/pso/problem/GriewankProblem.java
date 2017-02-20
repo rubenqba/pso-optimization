@@ -14,14 +14,14 @@ public class GriewankProblem extends CommonProblemSet {
     }
 
     @Override
-    public double[] getLocationMinimum() {
+    public double[] getMinimumLocation() {
         double[] array = new double[getProblemDimension()];
         Arrays.fill(array, -600);
         return array;
     }
 
     @Override
-    public double[] getLocationMaximum() {
+    public double[] getMaximumLocation() {
         double[] array = new double[getProblemDimension()];
         Arrays.fill(array, 600);
         return array;

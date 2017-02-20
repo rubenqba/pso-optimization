@@ -18,14 +18,14 @@ public class Schaffer6Problem extends CommonProblemSet {
     }
 
     @Override
-    public double[] getLocationMinimum() {
+    public double[] getMinimumLocation() {
         double[] array = new double[getProblemDimension()];
         Arrays.fill(array, -100);
         return array;
     }
 
     @Override
-    public double[] getLocationMaximum() {
+    public double[] getMaximumLocation() {
         double[] array = new double[getProblemDimension()];
         Arrays.fill(array, -100);
         return array;

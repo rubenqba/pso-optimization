@@ -1,35 +1,29 @@
 package org.github.rubenqba.pso;
 
 import com.opencsv.CSVWriter;
-import lombok.Getter;
-import lombok.Setter;
 import org.github.rubenqba.pso.data.Location;
-import org.github.rubenqba.pso.data.Velocity;
 import org.github.rubenqba.pso.problem.ProblemSet;
 import org.github.rubenqba.pso.util.PSOUtility;
-import org.github.rubenqba.pso.util.RandomGenerator;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.NumberFormat;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.Comparator.comparingDouble;
 
-@Getter
 public class Swarm {
 
-    private ProblemSet problem;
-    private List<Particle> swarm;
-    private double gBest;
-    private Location gBestLocation;
+    protected Movement movement = new StandardMovement();
+    protected ProblemSet problem;
+    protected List<Particle> swarm;
+    protected double gBest;
+    protected Location gBestLocation;
 
-    private int iteration;
-    @Setter
-    private boolean debug = false;
+    protected int iteration;
+    protected boolean debug = false;
 
     public void execute(ProblemSet problem) {
         this.problem = problem;
@@ -53,52 +47,29 @@ public class Swarm {
 
         System.out.println(String.format("\nSolution of %s %sfound at iteration %d, the solutions is:",
                 s.getProblem().getName(), (s.getError() > problem.getErrorTolerance()) ? "not-" : "", s.getIteration()));
-        System.out.println("     Best : " + s.getGBestLocation());
-        System.out.println("     Value: " + nf.format(s.getGBest()));
+        System.out.println("     Best : " + s.getBestLocation());
+        System.out.println("     Value: " + nf.format(s.getBestFitness()));
         if (problem.getOptimum() != 0)
             System.out.println("     Error: " + nf.format(s.getError()));
     }
 
     public void iterate() {
+
         updateFitnessList();
 
-        final double w = problem.getW(iteration);
+        swarm.stream().forEach(p -> movement.moveParticle(this, p));
 
-        Random generator = RandomGenerator.getInstance().getRandom();
-
-        swarm.stream().forEach(p -> {
-            double[] r1 = RandomGenerator.getInstance().nextDoubles(problem.getProblemDimension());
-            double[] r2 = RandomGenerator.getInstance().nextDoubles(problem.getProblemDimension());
-
-            // step 3 - update velocity
-            // step 4 - update location
-            double[] newVel = new double[problem.getProblemDimension()];
-            double[] newLoc = new double[problem.getProblemDimension()];
-
-            IntStream.range(0, problem.getProblemDimension())
-                    .forEach(j -> {
-                        newVel[j] = (w * p.getVelocity().getVelocity()[j]) +
-                                (r1[j] * problem.getC1()) * (p.getBestLocation().getLoc()[j] - p.getLocation
-                                                                                                                  ()
-                                                                                                                .getLoc()[j]) +
-                                (r2[j] * problem.getC2()) * (gBestLocation.getLoc()[j] - p.getLocation()
-                                                                                                          .getLoc()[j]);
-                        newLoc[j] = p.getLocation().getLoc()[j] + newVel[j];
-                    });
-            p.setVelocity(new Velocity(newVel));
-            p.setLocation(new Location(newLoc));
-        });
-
-        if (isDebug()) {
+        if (debug) {
             NumberFormat nf = NumberFormat.getInstance(PSOUtility.getLocale("mx"));
             System.out.println("ITERATION " + (iteration + 1) + ": ");
             System.out.println("     Best : " + gBestLocation);
-            System.out.println("     Value: " + nf.format(problem.evaluate(gBestLocation.getLoc())));
+            System.out.println("     Value: " + nf.format(gBest));
             System.out.println("     Error: " + getError());
         }
 
         iteration++;
     }
+
 
     public void initializeSwarm() {
         swarm = IntStream.range(0, problem.getSwarmSize())
@@ -110,7 +81,7 @@ public class Swarm {
                         }).collect(Collectors.toList());
     }
 
-    public void updateFitnessList() {
+    protected void updateFitnessList() {
         List<Double> fitness = swarm.stream()
                                        .map(p -> p.getFitnessValue(problem))
                                        .collect(Collectors.toList());
@@ -145,5 +116,37 @@ public class Swarm {
         }
 
         System.out.println(sw);
+    }
+
+    public double getBestFitness() {
+        return gBest;
+    }
+
+    public Location getBestLocation() {
+        return gBestLocation;
+    }
+
+    public ProblemSet getProblem() {
+        return problem;
+    }
+
+    public List<Particle> getSwarm() {
+        return swarm;
+    }
+
+    public int getIteration() {
+        return iteration;
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public Movement getMovement() {
+        return movement;
+    }
+
+    public void setMovement(Movement movement) {
+        this.movement = movement;
     }
 }

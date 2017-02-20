@@ -11,12 +11,12 @@ public class BaseLineProblem extends CommonProblemSet {
     }
 
     @Override
-    public double[] getLocationMinimum() {
+    public double[] getMinimumLocation() {
         return new double[]{1, -1};
     }
 
     @Override
-    public double[] getLocationMaximum() {
+    public double[] getMaximumLocation() {
         return new double[]{4, 1};
     }
 

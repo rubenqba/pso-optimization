@@ -10,12 +10,12 @@ public class LinearProblem extends CommonProblemSet {
     }
 
     @Override
-    public double[] getLocationMinimum() {
+    public double[] getMinimumLocation() {
         return new double[]{0};
     }
 
     @Override
-    public double[] getLocationMaximum() {
+    public double[] getMaximumLocation() {
         return new double[]{10};
     }
 
