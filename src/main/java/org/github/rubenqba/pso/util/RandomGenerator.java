@@ -1,21 +1,16 @@
 package org.github.rubenqba.pso.util;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public  class RandomGenerator {
+public class RandomGenerator {
     private static RandomGenerator instance;
 
     private Random random;
 
     private RandomGenerator() {
-        try {
-            random = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            random = new SecureRandom(SecureRandom.getSeed(8));
-        }
+        random = new SecureRandom(SecureRandom.getSeed(55));
     }
 
     public static RandomGenerator getInstance() {

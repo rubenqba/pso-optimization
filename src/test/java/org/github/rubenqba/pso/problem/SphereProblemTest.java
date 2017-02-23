@@ -1,7 +1,13 @@
 package org.github.rubenqba.pso.problem;
 
+import org.github.rubenqba.pso.RK2Movement;
+import org.github.rubenqba.pso.StandardMovement;
+import org.github.rubenqba.pso.Swarm;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,6 +29,21 @@ public class SphereProblemTest extends ProblemTest {
 
         assertThat(p.evaluate(x1), equalTo(0d));
         assertThat(p.evaluate(x2), equalTo(55d));
+    }
+
+    @Test
+    @Ignore
+    public void testManual() {
+
+        swarm = new Swarm();
+
+        Arrays.asList(new StandardMovement(), new RK2Movement(1d/8), new RK2Movement(.25), new RK2Movement(.5), new RK2Movement(3d/4), new RK2Movement(1))
+                .stream()
+                .forEach(m -> {
+                    swarm.setMovement(m);
+                    p.setSwarmSize(250);
+                    swarm.execute(p);
+                });
     }
 
 }

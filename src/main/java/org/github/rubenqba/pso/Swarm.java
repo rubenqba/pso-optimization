@@ -45,8 +45,9 @@ public class Swarm {
         NumberFormat nf = NumberFormat.getInstance(PSOUtility.getLocale("mx"));
         nf.setMaximumFractionDigits(8);
 
-        System.out.println(String.format("\nSolution of %s %sfound at iteration %d, the solutions is:",
-                s.getProblem().getName(), (s.getError() > problem.getErrorTolerance()) ? "not-" : "", s.getIteration()));
+        System.out.println(String.format("\nSolution of %s-%s %sfound at iteration %d, the solutions is:",
+                s.getMovement().getName(), s.getProblem().getName(),
+                (s.getError() > problem.getErrorTolerance()) ? "not-" : "", s.getIteration()));
         System.out.println("     Best : " + s.getBestLocation());
         System.out.println("     Value: " + nf.format(s.getBestFitness()));
         if (problem.getOptimum() != 0)

@@ -12,10 +12,10 @@ import java.util.stream.IntStream;
  */
 public class RK2Movement extends StandardMovement {
 
-    protected int h;
+    protected double h;
 
-    public RK2Movement() {
-        h = 1;
+    public RK2Movement(double h) {
+        this.h = h;
     }
 
     @Override
@@ -36,10 +36,15 @@ public class RK2Movement extends StandardMovement {
                             (r1[i] * swarm.getProblem().getC1()) * (p.getBestLocation().getLoc()[i] - vel[i]) +
                             (r2[i] * swarm.getProblem().getC2()) * (swarm.getBestLocation().getLoc()[i] - vel[i]);
 
-                    newLoc[i] = p.getLocation().getLoc()[i] + (h * (vel[i] + newVel[i])) / 2;
+                    newLoc[i] = p.getLocation().getLoc()[i] + (h * (vel[i] + newVel[i]));
                 });
 
         p.setVelocity(new Velocity(newVel));
         p.setLocation(new Location(newLoc));
+    }
+
+    @Override
+    public String getName() {
+        return getClass().getSimpleName() + "_" + Double.toString(h);
     }
 }

@@ -31,33 +31,29 @@ public abstract class ProblemTest {
         nf.setMaximumFractionDigits(8);
 
         swarm = new Swarm();
-        Arrays.asList(new StandardMovement(), new RK2Movement()).stream()
+        CSVWriter writer = new CSVWriter(new FileWriter("target/" + p.getName() + ".csv"));
+
+        writer.writeNext(new String[]{"Movement", "Run", "Particles", "W", "C1", "C2", "Goal", "Iteration", "Value",
+                "Error"});
+
+        Arrays.asList(new StandardMovement(), new RK2Movement(.5), new RK2Movement(.25), new RK2Movement(1.5)).stream()
                 .forEach(m -> {
-                    try {
-                        swarm.setMovement(m);
-                        CSVWriter writer = new CSVWriter(new FileWriter("target/" + p.getName() + ".csv"));
-
-                        writer.writeNext(new String[]{"Movement", "Run", "Particles", "W", "C1", "C2", "Goal", "Iteration", "Value",
-                                "Error"});
-                        IntStream.range(0, 20)
-                                .forEach(i ->
-                                        Arrays.stream(swarmSize)
-                                                .forEach(s -> {
-                                                    p.setSwarmSize(s);
-                                                    swarm.execute(p);
-                                                    writer.writeNext(new String[]{swarm.getMovement().getName(), nf.format(i), nf.format
-                                                            (p.getSwarmSize()),
-                                                            nf.format(p.getW()), nf.format(p.getC1()), nf.format(p.getC2()),
-                                                            nf.format(p.getErrorTolerance()),
-                                                            Integer.toString(swarm.getIteration()),
-                                                            nf.format(swarm.getBestFitness()), nf.format(swarm.getError())});
-                                                })
-                                );
-
-                        writer.close();
-                    } catch (IOException ex) {
-                        throw new RuntimeException("I/O Error", ex);
-                    }
+                    swarm.setMovement(m);
+                    IntStream.range(0, 5)
+                            .forEach(i ->
+                                    Arrays.stream(swarmSize)
+                                            .forEach(s -> {
+                                                p.setSwarmSize(s);
+                                                swarm.execute(p);
+                                                writer.writeNext(new String[]{swarm.getMovement().getName(), nf.format(i), nf.format
+                                                        (p.getSwarmSize()),
+                                                        nf.format(p.getW()), nf.format(p.getC1()), nf.format(p.getC2()),
+                                                        nf.format(p.getErrorTolerance()),
+                                                        Integer.toString(swarm.getIteration()),
+                                                        nf.format(swarm.getBestFitness()), nf.format(swarm.getError())});
+                                            })
+                            );
                 });
+        writer.close();
     }
 }
