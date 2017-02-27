@@ -5,6 +5,7 @@ import org.github.rubenqba.pso.RK2Movement;
 import org.github.rubenqba.pso.StandardMovement;
 import org.github.rubenqba.pso.Swarm;
 import org.github.rubenqba.pso.util.PSOUtility;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileWriter;
@@ -22,6 +23,9 @@ public abstract class ProblemTest {
     protected Swarm swarm;
 
     private int[] swarmSize = {15, 30, 60};
+
+    @Before
+    public abstract void setUp();
 
 
     @Test

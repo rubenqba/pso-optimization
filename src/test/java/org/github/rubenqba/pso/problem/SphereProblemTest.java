@@ -37,7 +37,7 @@ public class SphereProblemTest extends ProblemTest {
 
         swarm = new Swarm();
 
-        Arrays.asList(new StandardMovement(), new RK2Movement(1d/8), new RK2Movement(.25), new RK2Movement(.5), new RK2Movement(3d/4), new RK2Movement(1))
+        Arrays.asList(new StandardMovement(), new RK2Movement(.5), new RK2Movement(.25))
                 .stream()
                 .forEach(m -> {
                     swarm.setMovement(m);

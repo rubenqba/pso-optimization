@@ -33,7 +33,7 @@ public class Swarm {
         initializeSwarm();
 
         iteration = 0;
-        while (getError() > problem.getErrorTolerance() && iteration < problem.getMaximumIterations()) {
+        while (getError() > problem.getErrorTolerance()/* && iteration < problem.getMaximumIterations()*/) {
             updateFitnessList();
             iterate();
         }

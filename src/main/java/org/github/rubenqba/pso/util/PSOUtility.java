@@ -44,4 +44,8 @@ public class PSOUtility {
                 .findFirst()
                 .orElse(Locale.US);
     }
+
+    public static double square(double x) {
+        return x * x;
+    }
 }
