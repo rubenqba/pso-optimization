@@ -48,8 +48,9 @@ public class Swarm {
         System.out.println(String.format("\nSolution of %s-%s %sfound at iteration %d, the solutions is:",
                 s.getMovement().getName(), s.getProblem().getName(),
                 (s.getError() > problem.getErrorTolerance()) ? "not-" : "", s.getIteration()));
-        System.out.println("     Best : " + s.getBestLocation());
-        System.out.println("     Value: " + nf.format(s.getBestFitness()));
+        System.out.println("     Particles: " + problem.getSwarmSize());
+        System.out.println("     Best     : " + s.getBestLocation());
+        System.out.println("     Value    : " + nf.format(s.getBestFitness()));
         if (problem.getOptimum() != 0)
             System.out.println("     Error: " + nf.format(s.getError()));
     }

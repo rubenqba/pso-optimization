@@ -37,13 +37,17 @@ public class SphereProblemTest extends ProblemTest {
 
         swarm = new Swarm();
 
-        Arrays.asList(new StandardMovement(), new RK2Movement(.5), new RK2Movement(.25))
-                .stream()
-                .forEach(m -> {
-                    swarm.setMovement(m);
-                    p.setSwarmSize(250);
-                    swarm.execute(p);
+        Arrays.asList(50, 100, 200, 500).stream()
+                .forEach(s -> {
+                    Arrays.asList(new StandardMovement(), new RK2Movement(0.5))
+                            .stream()
+                            .forEach(m -> {
+                                swarm.setMovement(m);
+                                p.setSwarmSize(s);
+                                swarm.execute(p);
+                            });
                 });
+
     }
 
 }
