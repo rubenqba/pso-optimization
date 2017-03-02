@@ -48,7 +48,7 @@ public abstract class ProblemTest {
                                     Arrays.stream(swarmSize)
                                             .forEach(s -> {
                                                 p.setSwarmSize(s);
-                                                swarm.execute(p);
+                                                swarm.execute(p, null);
                                                 writer.writeNext(new String[]{swarm.getMovement().getName(), nf.format(i), nf.format
                                                         (p.getSwarmSize()),
                                                         nf.format(p.getW()), nf.format(p.getC1()), nf.format(p.getC2()),

@@ -15,7 +15,7 @@ public class PSODriver {
                 new RastriginProblem(), new GriewankProblem(), new Schaffer6Problem());
 
         problems.stream()
-                .forEach(s::execute);
+                .forEach(p -> s.execute(p, null));
     }
 
     private void summary(Swarm s) {

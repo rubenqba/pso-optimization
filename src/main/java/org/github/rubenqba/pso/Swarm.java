@@ -21,19 +21,21 @@ public class Swarm {
     protected List<Particle> swarm;
     protected double gBest;
     protected Location gBestLocation;
+    protected List<Location> history;
 
     protected int iteration;
     protected boolean debug = false;
 
-    public void execute(ProblemSet problem) {
+    public void execute(ProblemSet problem, List<Location> history) {
         this.problem = problem;
-
         gBest = Double.MAX_VALUE;
+
+        this.history = history;
 
         initializeSwarm();
 
         iteration = 0;
-        while (getError() > problem.getErrorTolerance()/* && iteration < problem.getMaximumIterations()*/) {
+        while (getError() > problem.getErrorTolerance() && iteration < problem.getMaximumIterations()) {
             updateFitnessList();
             iterate();
         }
@@ -61,12 +63,8 @@ public class Swarm {
 
         swarm.stream().forEach(p -> movement.moveParticle(this, p));
 
-        if (debug) {
-            NumberFormat nf = NumberFormat.getInstance(PSOUtility.getLocale("mx"));
-            System.out.println("ITERATION " + (iteration + 1) + ": ");
-            System.out.println("     Best : " + gBestLocation);
-            System.out.println("     Value: " + nf.format(gBest));
-            System.out.println("     Error: " + getError());
+        if (history != null) {
+            history.add(new Location(getBestLocation()));
         }
 
         iteration++;
@@ -78,7 +76,7 @@ public class Swarm {
                         .mapToObj(i -> {
                             Particle p = new Particle();
                             p.setLocation(PSOUtility.randomLocation(problem));
-                            p.setVelocity(PSOUtility.randomVelocity(problem));
+                            p.setVelocity(PSOUtility.fixedVelocity(problem, 0));
                             return p;
                         }).collect(Collectors.toList());
     }
@@ -150,5 +148,13 @@ public class Swarm {
 
     public void setMovement(Movement movement) {
         this.movement = movement;
+    }
+
+    public List<Location> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<Location> history) {
+        this.history = history;
     }
 }

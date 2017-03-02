@@ -38,6 +38,12 @@ public class PSOUtility {
         return new Velocity(vel);
     }
 
+    public static Velocity fixedVelocity(ProblemSet problem, double initialValue) {
+        double[] vel = new double[problem.getProblemDimension()];
+        Arrays.fill(vel, initialValue);
+        return new Velocity(vel);
+    }
+
     public static Locale getLocale(String country) {
         return Arrays.stream(Locale.getAvailableLocales())
                 .filter(l -> country.equalsIgnoreCase(l.getCountry()))
