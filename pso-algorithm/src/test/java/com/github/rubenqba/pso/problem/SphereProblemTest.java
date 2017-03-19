@@ -46,49 +46,7 @@ public class SphereProblemTest extends ProblemTest {
 
         swarm = new Swarm();
 
-        SphereProblem p1 = new SphereProblem() {
-            @Override
-            public double getW() {
-                return 0.6;
-            }
-
-            @Override
-            public double getWDamp() {
-                return 0.99;
-            }
-
-            @Override
-            public double getC1() {
-                return 1.7;
-            }
-
-            @Override
-            public double getC2() {
-                return 1.7;
-            }
-
-            @Override
-            public int getProblemDimension() {
-                return 2;
-            }
-
-            @Override
-            public double getErrorTolerance() {
-                return 1E-2;
-            }
-
-            @Override
-            public int getMaximumIterations() {
-                return 1000;
-            }
-
-            @Override
-            public String getName() {
-                return "SphereModifiedProblem";
-            }
-        };
-
-        CSVWriter writer = new CSVWriter(new FileWriter("target/" + p1.getName() + ".csv"));
+        CSVWriter writer = new CSVWriter(new FileWriter("target/" + p.getName() + ".csv"));
         writer.writeNext(new String[]{"Movement", "Particles", "Iteration", "Value", "Error"});
 
         NumberFormat nf = NumberFormat.getInstance(PSOUtility.getLocale("es"));
@@ -100,8 +58,8 @@ public class SphereProblemTest extends ProblemTest {
                             .forEach(m -> {
                                 List<Double> bestValue = new ArrayList<>();
                                 swarm.setMovement(m);
-                                p1.setSwarmSize(s);
-                                swarm.execute(p1, bestValue);
+                                p.setSwarmSize(s);
+                                swarm.execute(p, bestValue);
 
                                 IntStream.range(0, bestValue.size())
                                         .forEach(i -> writer.writeNext(new String[]{m.getName(), s.toString(), Integer.toString(i),

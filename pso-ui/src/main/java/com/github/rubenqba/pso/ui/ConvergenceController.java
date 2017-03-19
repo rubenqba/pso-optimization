@@ -1,6 +1,8 @@
 package com.github.rubenqba.pso.ui;
 
+import com.github.rubenqba.pso.Movement;
 import com.github.rubenqba.pso.Swarm;
+import com.github.rubenqba.pso.movement.StandardMovement;
 import com.github.rubenqba.pso.problem.*;
 import com.github.rubenqba.pso.ui.utils.UiUtils;
 import javafx.beans.InvalidationListener;
@@ -8,6 +10,11 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -15,18 +22,25 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.text.WordUtils;
+import org.controlsfx.glyphfont.GlyphFont;
 
+import java.io.FileInputStream;
 import java.net.InterfaceAddress;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Log4j2
 public class ConvergenceController implements Initializable {
 
     private Swarm swarm;
     private CommonProblemSet problem;
+    private Movement movement;
 
     @FXML
     private Spinner<Integer> uiSwarmSize;
@@ -48,11 +62,15 @@ public class ConvergenceController implements Initializable {
     private ComboBox<FitnessFunction> uiFitnessFunction;
     @FXML
     private Spinner<Integer> uiProblemDimension;
+    @FXML
+    private LineChart<String, Double> uiConvergenceChart;
+    @FXML
+    private Button uiRunAlgorithm;
 
 
-    public void changeSwarmSize() {
-        problem.setSwarmSize(uiSwarmSize.getValue());
+    private void changeSwarmSize() {
         log.debug("Se cambió el valor de SwarmSize a " + uiSwarmSize.getValue());
+        problem.setSwarmSize(uiSwarmSize.getValue());
     }
 
     private void changeFitnessFunction(ActionEvent event) {
@@ -118,6 +136,24 @@ public class ConvergenceController implements Initializable {
         log.debug("Se cambió el valor de Problem Dimension a " + uiProblemDimension.getValue());
     }
 
+    public void runAlgorithm(ActionEvent event) {
+        List<Double> bestFitness = new ArrayList<>();
+        swarm.execute(problem, bestFitness);
+
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+        series.setName(movement.getName());
+
+        series.getData().addAll(IntStream.range(0, bestFitness.size())
+                .mapToObj(i -> new XYChart.Data<String, Double>(Integer.toString(i), Math.log10(bestFitness.get(i))))
+                .collect(Collectors.toList()));
+
+        uiConvergenceChart.getData().add(series);
+    }
+
+    public void cleanChart(ActionEvent action) {
+        uiConvergenceChart.getData().clear();
+    }
+
     private boolean validateCoefficients() {
         double inertia = uiInertia.getValue();
         double personal = uiPersonalAcceleration.getValue();
@@ -148,12 +184,13 @@ public class ConvergenceController implements Initializable {
 
         swarm = new Swarm();
         problem = new SphereProblem();
+        movement = new StandardMovement();
 
         uiFitnessFunction.getItems().addAll(FitnessFunction.values());
         uiFitnessFunction.setOnAction(event -> changeFitnessFunction(event));
         uiFitnessFunction.setValue(FitnessFunction.SPHERE);
 
-        uiSwarmSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 25, 50));
+        uiSwarmSize.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, problem.getSwarmSize(), 50));
         uiSwarmSize.valueProperty().addListener((observable, oldValue, newValue) -> changeSwarmSize());
 
         InvalidationListener vCoefficients = new InvalidationListener() {
@@ -165,18 +202,18 @@ public class ConvergenceController implements Initializable {
         };
 
         uiInertia.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-1, 1, problem.getW(), .1));
-        uiInertia.valueProperty().addListener(vCoefficients);
+//        uiInertia.valueProperty().addListener(vCoefficients);
         uiInertia.valueProperty().addListener((observable, oldValue, newValue) -> changeInertiaWeigth());
 
         uiDampingRatio.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(.1, 1, problem.getWDamp(), .1));
         uiDampingRatio.valueProperty().addListener((observable, oldValue, newValue) -> changeDampingRatio());
 
         uiPersonalAcceleration.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.MIN_VALUE, Double.MAX_VALUE, problem.getC1(), .1));
-        uiPersonalAcceleration.valueProperty().addListener(vCoefficients);
+//        uiPersonalAcceleration.valueProperty().addListener(vCoefficients);
         uiPersonalAcceleration.valueProperty().addListener((observable, oldValue, newValue) -> changePersonalAcceleration());
 
         uiSocialAcceleration.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(Double.MIN_VALUE, Double.MAX_VALUE, problem.getC2(), .1));
-        uiSocialAcceleration.valueProperty().addListener(vCoefficients);
+//        uiSocialAcceleration.valueProperty().addListener(vCoefficients);
         uiSocialAcceleration.valueProperty().addListener((observable, oldValue, newValue) -> changeSocialAcceleration());
 
         SpinnerValueFactory<Integer> errorVF = new SpinnerValueFactory.IntegerSpinnerValueFactory(Double.MIN_EXPONENT, Double.MAX_EXPONENT, -2);
@@ -204,6 +241,7 @@ public class ConvergenceController implements Initializable {
         uiProblemDimension.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, Integer.MAX_VALUE, problem.getProblemDimension()));
         uiProblemDimension.valueProperty().addListener((observable, oldValue, newValue) -> changeProblemDimension());
 
-
+        uiConvergenceChart.getXAxis().setLabel("Number of Iterations");
+        uiConvergenceChart.getYAxis().setLabel("Best Swarm value");
     }
 }

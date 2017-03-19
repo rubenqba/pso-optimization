@@ -2,6 +2,8 @@ package com.github.rubenqba.pso.problem;
 
 import lombok.Data;
 
+import java.util.Arrays;
+
 /**
  * Created by ruben.bressler on 15/02/17.
  */
@@ -18,8 +20,8 @@ public abstract class CommonProblemSet {
     private double c1 = 1.7;
     private double c2 = 1.7;
 
-    private double[] minimumLocation;
-    private double[] maximumLocation;
+    private double minimumByDimension = -100;
+    private double maximumByDimension = 100;
 
     private double errorTolerance = 1E-2;
     private int maximumIterations = 1000;
@@ -30,6 +32,18 @@ public abstract class CommonProblemSet {
     }
 
     abstract public double evaluate(double[] vars);
+
+    public double[] getMinimumLocation() {
+        double[] array = new double[getProblemDimension()];
+        Arrays.fill(array, getMinimumByDimension());
+        return array;
+    }
+
+    public double[] getMaximumLocation() {
+        double[] array = new double[getProblemDimension()];
+        Arrays.fill(array, getMaximumByDimension());
+        return array;
+    }
 
     public double getOptimum() {
         return 0;

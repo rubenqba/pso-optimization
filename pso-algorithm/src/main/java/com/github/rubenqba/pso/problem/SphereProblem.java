@@ -6,28 +6,15 @@ import java.util.Arrays;
  * Created by ruben.bressler on 8/02/17.
  */
 public class SphereProblem extends CommonProblemSet {
-    @Override
-    public int getProblemDimension() {
-        return 30;
-    }
 
-    @Override
-    public double[] getMinimumLocation() {
-        double[] array = new double[getProblemDimension()];
-        Arrays.fill(array, -100d);
-        return array;
-    }
-
-    @Override
-    public double[] getMaximumLocation() {
-        double[] array = new double[getProblemDimension()];
-        Arrays.fill(array, 100d);
-        return array;
-    }
-
-    @Override
-    public double getErrorTolerance() {
-        return 1E-2;
+    public SphereProblem() {
+        setW(.6);
+        setWDamp(.99);
+        setC1(1.7);
+        setC2(1.7);
+        setProblemDimension(2);
+        setMaximumIterations(100);
+        setErrorTolerance(1E-2);
     }
 
     @Override
