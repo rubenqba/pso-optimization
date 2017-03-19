@@ -56,7 +56,21 @@ public interface ProblemSet {
 
     double evaluate(double[] location);
 
-    enum StopCondition { ERROR, ITERATIONS, BOTH }
+    enum StopCondition {
+        ERROR("Error Tolerance"),
+        ITERATIONS("Max. Iterations"),
+        BOTH("Both");
+
+        private String label;
+
+        StopCondition(String label) {
+            this.label = label;
+        }
+
+        public String toString() {
+            return label;
+        }
+    }
 
     default StopCondition getStopCondition() {
         return StopCondition.BOTH;
