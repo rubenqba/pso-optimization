@@ -110,7 +110,7 @@ public class ConvergenceController implements Initializable {
 
     private void changeStopCondition(ActionEvent event) {
         problem.setStopCondition(uiStopCondition.getValue());
-        log.debug("Se cambió el valor de Stop Condition a " + uiStopCondition.getValue());
+        log.debug(String.format("Se cambió el valor de Stop Condition a '%s'", uiStopCondition.getValue()));
     }
 
     private void changeProblemDimension() {
