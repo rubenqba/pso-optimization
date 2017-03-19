@@ -63,16 +63,6 @@ public class RosenbrockProblemTest extends ProblemTest {
             }
 
             @Override
-            public double getWUpper() {
-                return 1.0;
-            }
-
-            @Override
-            public double getWLower() {
-                return 1.0;
-            }
-
-            @Override
             public String getName() {
                 return "RosenbrockModifiedProblem";
             }

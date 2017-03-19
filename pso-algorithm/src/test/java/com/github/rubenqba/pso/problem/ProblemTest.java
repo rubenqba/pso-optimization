@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
  */
 public abstract class ProblemTest {
 
-    protected ProblemSet p;
+    protected CommonProblemSet p;
     protected Swarm swarm;
 
     private int[] swarmSize = {15, 30, 60};

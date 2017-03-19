@@ -2,7 +2,8 @@ package com.github.rubenqba.pso;
 
 import com.github.rubenqba.pso.data.Location;
 import com.github.rubenqba.pso.movement.StandardMovement;
-import com.github.rubenqba.pso.problem.ProblemSet;
+import com.github.rubenqba.pso.problem.CommonProblemSet;
+import com.github.rubenqba.pso.problem.StopCondition;
 import com.github.rubenqba.pso.util.PSOUtility;
 import com.opencsv.CSVWriter;
 
@@ -19,7 +20,7 @@ import static java.util.Comparator.comparingDouble;
 public class Swarm {
 
     protected Movement movement = new StandardMovement();
-    protected ProblemSet problem;
+    protected CommonProblemSet problem;
     protected List<Particle> swarm;
     protected double gBest;
     protected Location gBestLocation;
@@ -27,14 +28,14 @@ public class Swarm {
     protected int iteration;
     protected boolean debug = false;
 
-    public void execute(ProblemSet problem, List<Double> history) {
+    public void execute(CommonProblemSet problem, List<Double> history) {
         this.problem = problem;
         gBest = Double.MAX_VALUE;
 
         initializeSwarm();
         iteration = 0;
 
-        Predicate<ProblemSet.StopCondition> stopCondition = (condition -> {
+        Predicate<StopCondition> stopCondition = (condition -> {
             switch (condition) {
                 case BOTH:
                     return getError() > problem.getErrorTolerance() && iteration < problem.getMaximumIterations();
@@ -139,7 +140,7 @@ public class Swarm {
         return gBestLocation;
     }
 
-    public ProblemSet getProblem() {
+    public CommonProblemSet getProblem() {
         return problem;
     }
 

@@ -24,15 +24,10 @@ public class StandardMovement implements Movement {
 
         final double[] w = {swarm.getProblem().getW()};
         double wdamp = swarm.getProblem().getWDamp();
-        double wu = swarm.getProblem().getWUpper();
-        double wl = swarm.getProblem().getWLower();
-        int maxIteration = swarm.getProblem().getMaximumIterations();
-        int it = swarm.getIteration();
 
         IntStream.range(0, swarm.getProblem().getProblemDimension())
                 .forEach(i -> {
-                    if (wdamp != 0)
-                        w[0] *= wdamp;
+                    w[0] *= wdamp;
                     newVel[i] = (w[0] * p.getVelocity().getVelocity()[i]) +
                             (r1[i] * swarm.getProblem().getC1()) * (p.getBestLocation().getLoc()[i] - p.getLocation().getLoc()[i]) +
                             (r2[i] * swarm.getProblem().getC2()) * (swarm.getBestLocation().getLoc()[i] - p.getLocation().getLoc()[i]);

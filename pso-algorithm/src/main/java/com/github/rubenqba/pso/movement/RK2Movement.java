@@ -37,8 +37,7 @@ public class RK2Movement extends StandardMovement {
 
         IntStream.range(0, swarm.getProblem().getProblemDimension())
                 .forEach(i -> {
-                    if (wdamp != 0)
-                        w[0] *= wdamp;
+                    w[0] *= wdamp;
                     newVel[i] = (w[0] * p.getVelocity().getVelocity()[i]) +
                             (r1[i] * swarm.getProblem().getC1()) * (p.getBestLocation().getLoc()[i] - p.getLocation().getLoc()[i]) +
                             (r2[i] * swarm.getProblem().getC2()) * (swarm.getBestLocation().getLoc()[i] - p.getLocation().getLoc()[i]);

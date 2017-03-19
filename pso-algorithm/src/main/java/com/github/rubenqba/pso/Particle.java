@@ -2,7 +2,7 @@ package com.github.rubenqba.pso;
 
 import com.github.rubenqba.pso.data.Location;
 import com.github.rubenqba.pso.data.Velocity;
-import com.github.rubenqba.pso.problem.ProblemSet;
+import com.github.rubenqba.pso.problem.CommonProblemSet;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +34,7 @@ public class Particle {
         bestFitness = Double.MAX_VALUE;
     }
 
-    public double getFitnessValue(ProblemSet problem) {
+    public double getFitnessValue(CommonProblemSet problem) {
         fitnessValue = problem.evaluate(location.getLoc());
 
         if (fitnessValue < bestFitness) {

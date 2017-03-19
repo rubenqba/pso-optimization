@@ -11,7 +11,7 @@ public class PSODriver {
         Locale.setDefault(Locale.US);
         Swarm s = new Swarm();
 
-        List<ProblemSet> problems = Arrays.asList(new SphereProblem(), new RosenbrockProblem(),
+        List<CommonProblemSet> problems = Arrays.asList(new SphereProblem(), new RosenbrockProblem(),
                 new RastriginProblem(), new GriewankProblem(), new Schaffer6Problem());
 
         problems.stream()
