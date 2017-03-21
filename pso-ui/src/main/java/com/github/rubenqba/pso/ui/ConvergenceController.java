@@ -2,36 +2,29 @@ package com.github.rubenqba.pso.ui;
 
 import com.github.rubenqba.pso.Movement;
 import com.github.rubenqba.pso.Swarm;
+import com.github.rubenqba.pso.movement.ImplicitTrapezeMovement;
 import com.github.rubenqba.pso.movement.StandardMovement;
 import com.github.rubenqba.pso.problem.*;
+import com.github.rubenqba.pso.ui.utils.FitnessFunction;
+import com.github.rubenqba.pso.ui.utils.TypeOfMovement;
 import com.github.rubenqba.pso.ui.utils.UiUtils;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.text.WordUtils;
-import org.controlsfx.glyphfont.GlyphFont;
 
-import java.io.FileInputStream;
-import java.net.InterfaceAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -57,6 +50,8 @@ public class ConvergenceController implements Initializable {
     @FXML
     private Spinner<Integer> uiMaxIterations;
     @FXML
+    private ComboBox<TypeOfMovement> uiMovement;
+    @FXML
     private ComboBox<StopCondition> uiStopCondition;
     @FXML
     private ComboBox<FitnessFunction> uiFitnessFunction;
@@ -64,8 +59,6 @@ public class ConvergenceController implements Initializable {
     private Spinner<Integer> uiProblemDimension;
     @FXML
     private LineChart<String, Double> uiConvergenceChart;
-    @FXML
-    private Button uiRunAlgorithm;
 
 
     private void changeSwarmSize() {
@@ -126,6 +119,18 @@ public class ConvergenceController implements Initializable {
         log.debug("Se cambió el valor de Max Iteration a " + uiMaxIterations.getValue());
     }
 
+    private void changeMovement(ActionEvent event) {
+        switch (uiMovement.getValue()) {
+            case STANDARD_MOVEMENT:
+                movement = new StandardMovement();
+                break;
+            case IMPLICIT_TRAPEZE:
+                movement = new ImplicitTrapezeMovement();
+                break;
+        }
+        log.debug(String.format("Se cambia el tipo de movimiento por '%s'", uiMovement.getValue()));
+    }
+
     private void changeStopCondition(ActionEvent event) {
         problem.setStopCondition(uiStopCondition.getValue());
         log.debug(String.format("Se cambió el valor de Stop Condition a '%s'", uiStopCondition.getValue()));
@@ -138,6 +143,8 @@ public class ConvergenceController implements Initializable {
 
     public void runAlgorithm(ActionEvent event) {
         List<Double> bestFitness = new ArrayList<>();
+
+        swarm.setMovement(movement);
         swarm.execute(problem, bestFitness);
 
         XYChart.Series<String, Double> series = new XYChart.Series<>();
@@ -160,25 +167,11 @@ public class ConvergenceController implements Initializable {
         double social = uiSocialAcceleration.getValue();
 
 //        TODO: revisar la condición
-        if ((-1 < inertia || 1 > inertia) &&
-                (personal + social < 2*(1+inertia)) &&
-                (0 < personal + inertia))
-            return true;
-        return false;
+        return (-1 < inertia || 1 > inertia) &&
+                (personal + social < 2 * (1 + inertia)) &&
+                (0 < personal + inertia);
     }
 
-    enum FitnessFunction {
-        SPHERE,
-        ROSENBROCK,
-        GRIEWANK,
-        RASTRIGIN,
-        SCHAFFER6,
-        GOLDSTEIN_PRICE;
-
-        public String toString() {
-            return WordUtils.capitalizeFully(super.toString().replace('_', ' '));
-        }
-    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -233,6 +226,10 @@ public class ConvergenceController implements Initializable {
 
         uiMaxIterations.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(100, Integer.MAX_VALUE, problem.getMaximumIterations(), 100));
         uiMaxIterations.valueProperty().addListener((observable, oldValue, newValue) -> changeMaxIterations());
+
+        uiMovement.getItems().addAll(TypeOfMovement.values());
+        uiMovement.setValue(TypeOfMovement.STANDARD_MOVEMENT);
+        uiMovement.setOnAction(this::changeMovement);
 
         uiStopCondition.getItems().addAll(StopCondition.values());
         uiStopCondition.setValue(StopCondition.BOTH);
