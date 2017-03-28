@@ -2,7 +2,6 @@ package com.github.rubenqba.pso.util;
 
 import java.security.SecureRandom;
 import java.util.Random;
-import java.util.stream.IntStream;
 
 public class RandomGenerator {
     private static RandomGenerator instance;
@@ -24,11 +23,11 @@ public class RandomGenerator {
     }
 
     public double[] nextDoubles(int size) {
-        double[] r = new double[size];
-
-        IntStream.range(0, size)
-                .forEach(i -> r[i] = nextDouble());
-
+        double[] r = random
+                .doubles(size)
+                .boxed()
+                .mapToDouble(Double::doubleValue)
+                .toArray();
         return r;
     }
 }

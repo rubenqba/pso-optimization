@@ -27,6 +27,16 @@ public abstract class CommonProblemSet {
     private int maximumIterations = 1000;
     private StopCondition stopCondition = StopCondition.BOTH;
 
+    public CommonProblemSet() {
+        setW(.6);
+        setWDamp(.99);
+        setC1(1.7);
+        setC2(1.7);
+        setProblemDimension(2);
+        setMaximumIterations(1000);
+        setErrorTolerance(1E-2);
+    }
+
     public String getName() {
         return getClass().getSimpleName();
     }

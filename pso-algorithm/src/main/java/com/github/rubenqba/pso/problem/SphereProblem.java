@@ -8,13 +8,7 @@ import java.util.Arrays;
 public class SphereProblem extends CommonProblemSet {
 
     public SphereProblem() {
-        setW(.6);
-        setWDamp(.99);
-        setC1(1.7);
-        setC2(1.7);
-        setProblemDimension(2);
-        setMaximumIterations(100);
-        setErrorTolerance(1E-2);
+        super();
     }
 
     @Override

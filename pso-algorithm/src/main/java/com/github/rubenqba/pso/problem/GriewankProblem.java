@@ -1,6 +1,5 @@
 package com.github.rubenqba.pso.problem;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
@@ -8,23 +7,8 @@ import java.util.stream.IntStream;
  */
 public class GriewankProblem extends CommonProblemSet {
 
-    @Override
-    public double getErrorTolerance() {
-        return 1E-1;
-    }
-
-    @Override
-    public double[] getMinimumLocation() {
-        double[] array = new double[getProblemDimension()];
-        Arrays.fill(array, -600);
-        return array;
-    }
-
-    @Override
-    public double[] getMaximumLocation() {
-        double[] array = new double[getProblemDimension()];
-        Arrays.fill(array, 600);
-        return array;
+    public GriewankProblem() {
+        super();
     }
 
     @Override
