@@ -15,16 +15,16 @@ public abstract class CommonProblemSet {
     private int problemDimension = 30;
 
 //    return w_UPPERBOUND - (((double) iteration) / getMaximumIterations()) * (w_UPPERBOUND - w_LOWERBOUND);
-    private double w = .6;
-    private double wDamp = 1;
-    private double c1 = 1.7;
-    private double c2 = 1.7;
+    private double w;
+    private double wDamp;
+    private double c1;
+    private double c2;
 
-    private double minimumByDimension = -100;
-    private double maximumByDimension = 100;
+    private double minimumByDimension;
+    private double maximumByDimension;
 
-    private double errorTolerance = 1E-2;
-    private int maximumIterations = 1000;
+    private double errorTolerance;
+    private int maximumIterations;
     private StopCondition stopCondition = StopCondition.BOTH;
 
     public CommonProblemSet() {
@@ -32,8 +32,10 @@ public abstract class CommonProblemSet {
         setWDamp(.99);
         setC1(1.7);
         setC2(1.7);
+        setMinimumByDimension(-100);
+        setMaximumByDimension(100);
         setProblemDimension(2);
-        setMaximumIterations(1000);
+        setMaximumIterations(10000);
         setErrorTolerance(1E-2);
     }
 

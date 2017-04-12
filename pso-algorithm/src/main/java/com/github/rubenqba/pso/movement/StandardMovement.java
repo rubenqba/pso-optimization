@@ -40,6 +40,6 @@ public class StandardMovement implements Movement {
 
     @Override
     public String getName() {
-        return getClass().getSimpleName();
+        return "Std";
     }
 }

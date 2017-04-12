@@ -2,7 +2,7 @@ package com.github.rubenqba.pso.ui;
 
 import com.github.rubenqba.pso.Movement;
 import com.github.rubenqba.pso.Swarm;
-import com.github.rubenqba.pso.movement.ImplicitTrapezeMovement;
+import com.github.rubenqba.pso.movement.BDF2Movement;
 import com.github.rubenqba.pso.movement.StandardMovement;
 import com.github.rubenqba.pso.problem.*;
 import com.github.rubenqba.pso.ui.utils.FitnessFunction;
@@ -125,7 +125,7 @@ public class ConvergenceController implements Initializable {
                 movement = new StandardMovement();
                 break;
             case IMPLICIT_TRAPEZE:
-                movement = new ImplicitTrapezeMovement();
+                movement = new BDF2Movement();
                 break;
         }
         log.debug(String.format("Se cambia el tipo de movimiento por '%s'", uiMovement.getValue()));

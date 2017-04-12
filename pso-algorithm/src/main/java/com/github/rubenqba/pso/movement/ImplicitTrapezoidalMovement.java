@@ -12,11 +12,11 @@ import java.util.stream.IntStream;
 /**
  * Created by ruben.bresler on 20/02/17.
  */
-public class RK2Movement extends StandardMovement {
+public class ImplicitTrapezoidalMovement extends StandardMovement {
 
     protected double h;
 
-    public RK2Movement(double h) {
+    public ImplicitTrapezoidalMovement(double h) {
         this.h = h;
     }
 
@@ -51,6 +51,6 @@ public class RK2Movement extends StandardMovement {
 
     @Override
     public String getName() {
-        return getClass().getSimpleName() + "_" + Double.toString(h);
+        return "IT";
     }
 }

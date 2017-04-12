@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 /**
  * Created by ruben.bresler on 7/03/17.
  */
-public class ImplicitTrapezeMovement extends StandardMovement {
+public class BDF2Movement extends StandardMovement {
     @Override
     public void moveParticle(Swarm swarm, Particle p) {
         RandomGenerator generator = RandomGenerator.getInstance();
@@ -46,5 +46,10 @@ public class ImplicitTrapezeMovement extends StandardMovement {
         p.setVelocity(new Velocity(newVel));
         p.setLocation(new Location(newLoc));
         p.setBefore(new Location(pos));
+    }
+
+    @Override
+    public String getName() {
+        return "BDF2";
     }
 }

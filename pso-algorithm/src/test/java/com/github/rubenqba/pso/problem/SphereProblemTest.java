@@ -1,8 +1,8 @@
 package com.github.rubenqba.pso.problem;
 
 import com.github.rubenqba.pso.Swarm;
-import com.github.rubenqba.pso.movement.ImplicitTrapezeMovement;
-import com.github.rubenqba.pso.movement.RK2Movement;
+import com.github.rubenqba.pso.movement.BDF2Movement;
+import com.github.rubenqba.pso.movement.ImplicitTrapezoidalMovement;
 import com.github.rubenqba.pso.movement.StandardMovement;
 import com.github.rubenqba.pso.util.PSOUtility;
 import com.opencsv.CSVWriter;
@@ -52,9 +52,9 @@ public class SphereProblemTest extends ProblemTest {
         NumberFormat nf = NumberFormat.getInstance(PSOUtility.getLocale("es"));
         nf.setMaximumFractionDigits(8);
 
-        Stream.of(50/*, 100, 200, 500*/)
+        Stream.of(10, 30, 50, 100)
                 .forEach(s ->
-                    Stream.of(new StandardMovement(), new RK2Movement(.5), new ImplicitTrapezeMovement())
+                    Stream.of(new StandardMovement(), new ImplicitTrapezoidalMovement(.5), new BDF2Movement())
                             .forEach(m -> {
                                 List<Double> bestValue = new ArrayList<>();
                                 swarm.setMovement(m);

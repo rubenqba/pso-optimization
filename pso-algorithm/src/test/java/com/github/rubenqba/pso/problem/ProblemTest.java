@@ -1,7 +1,8 @@
 package com.github.rubenqba.pso.problem;
 
 import com.github.rubenqba.pso.Swarm;
-import com.github.rubenqba.pso.movement.RK2Movement;
+import com.github.rubenqba.pso.movement.BDF2Movement;
+import com.github.rubenqba.pso.movement.ImplicitTrapezoidalMovement;
 import com.github.rubenqba.pso.movement.StandardMovement;
 import com.github.rubenqba.pso.util.PSOUtility;
 import com.opencsv.CSVWriter;
@@ -22,7 +23,7 @@ public abstract class ProblemTest {
     protected CommonProblemSet p;
     protected Swarm swarm;
 
-    private int[] swarmSize = {15, 30, 60};
+    private int[] swarmSize = {10, 30, 50, 100};
 
     @Before
     public abstract void setUp();
@@ -40,10 +41,10 @@ public abstract class ProblemTest {
         writer.writeNext(new String[]{"Movement", "Run", "Particles", "W", "C1", "C2", "Goal", "Iteration", "Value",
                 "Error"});
 
-        Arrays.asList(new StandardMovement(), new RK2Movement(.5), new RK2Movement(.25), new RK2Movement(1.5)).stream()
+        Arrays.asList(new StandardMovement(), new ImplicitTrapezoidalMovement(.5), new BDF2Movement()).stream()
                 .forEach(m -> {
                     swarm.setMovement(m);
-                    IntStream.range(0, 5)
+                    IntStream.range(0, 30)
                             .forEach(i ->
                                     Arrays.stream(swarmSize)
                                             .forEach(s -> {
